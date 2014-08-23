@@ -1,0 +1,33 @@
+%%
+pdb=getpdb('1EJ4');
+
+partnercoords=[];
+idpcoords=[];
+
+for i=1:length(pdb.Model.Atom);
+    if pdb.Model.Atom(i).chainID=='A';
+        partnercoords=cat(1,partnercoords,[pdb.Model.Atom(i).X pdb.Model.Atom(i).Y pdb.Model.Atom(i).Z pdb.Model.Atom(i).resSeq]);
+    end;
+    if pdb.Model.Atom(i).chainID=='B';
+        idpcoords=cat(1,idpcoords,[pdb.Model.Atom(i).X pdb.Model.Atom(i).Y pdb.Model.Atom(i).Z pdb.Model.Atom(i).resSeq]);
+    end;
+end;
+
+boundidp=[];
+
+for i=1:length(partnercoords);
+    for j=1:length(idpcoords);
+        if sqrt((partnercoords(i,1)-idpcoords(j,1))^2+(partnercoords(i,2)-idpcoords(j,2))^2+(partnercoords(i,3)-idpcoords(j,3))^2)<4.0;
+            boundidp=cat(2,boundidp,idpcoords(j,4));
+        end;
+    end;
+end;
+allidp=[];
+for i=1:length(idpcoords);
+    allidp=cat(2,allidp,idpcoords(i,4));
+end;
+allidp=unique(allidp)
+length(allidp)
+boundidp=unique(boundidp)
+length(boundidp)
+            
