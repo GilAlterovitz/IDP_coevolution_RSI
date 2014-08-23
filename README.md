@@ -1,7 +1,7 @@
-SCA_Niranjan
+IDP_coevolution_RSI 
 ============
 
-Niranjan's statistical coupling analysis project from RSI
+Niranjan's RSI project
 
 I have attached my report as pdf, doc, and docx, presentation as ppt, pptx, and pdf, and the code as m (matlab) files
 and text files.
