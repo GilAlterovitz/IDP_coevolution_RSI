@@ -1,0 +1,28 @@
+%%
+addpath Inputs
+addpath Functions
+load('Outputs/tuberculosis_pup/tuberculosis_pup.mat');
+SCApull=triu(tuberculosis_pup.c2.SCA.C,1);
+
+% binary functional contact matrix
+L=[];
+for i=1:length(SCApull);
+    for j=1:length(SCApull);
+        if SCApull(i,j)>0;
+            L=cat(1,L,SCApull(i,j));
+        end;
+    end;
+end;
+average=mean(L);
+stdev=std(L);
+average+3*stdev
+SCApullnodiag = SCApull+SCApull';
+bincont = (SCApullnodiag>average + 3*(stdev));
+
+% functional residues
+rescont=sum(bincont);
+tuberculosis_pup.sequence.ats
+funcressec=tuberculosis_pup.sequence.ats(rescont>0)
+pyfunc=strjoin(funcressec,'+');
+
+%%
